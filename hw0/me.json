@@ -1,0 +1,15 @@
+{
+  "name": {
+    "first": "Hassan",
+    "last": "Siddig"
+  },
+  "fromWisconsin": false,
+  "numCredits": 0,
+  "major": "Computer Science",
+  "interests": [
+    "Programming",
+    "Weights lifting",
+    "Reading",
+    "Watching YouTube"
+  ]
+}
