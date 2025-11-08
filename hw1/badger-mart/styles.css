@@ -20,21 +20,25 @@ table, th, td {
   inline-size: 500px; 
 }
 
-/* TODO: Add your primary and secondary styling below! */
 .primary-button {
   border-radius: 5px;
-  border-style: none;
+  border: none;
   background-color: #33a654;
-  padding: 10px;
+  padding: 10px 16px;
   font-weight: bold;
   color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 
 .secondary-button {
   border-radius: 5px;
-  border-style: none;
+  border: 2px solid #33a654;
   background-color: white;
-  padding: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-
+  padding: 10px 16px;
+  color: #33a654;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
