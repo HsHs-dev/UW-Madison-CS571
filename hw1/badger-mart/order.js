@@ -62,7 +62,11 @@ function calculateSubtotal() {
 	let sum = 0
 	for (let item of ITEMS) {
 		let cost = parseFloat(document.getElementById(item + "-price").innerText)
-		let quant = parseInt(document.getElementById(item + "-quantity").value)
+		let quant = parseInt(document.getElementById(item + "-quantity").value) || 0
+		if (quant < 0) {
+			document.getElementById(item + "-quantity").value = 0;
+			quant = 0;
+		}
 		sum += (cost * quant)
 	}
 

@@ -10,7 +10,7 @@
 
 	<body>
 		<header>
-			<img src="assets/banner.png" alt="Badger Mart Banner" height="200" width="600" />
+			<img id="banner-img" src="assets/banner.png" alt="Badger Mart Banner" />
 			<h1>Badger Mart</h1>
 			<nav>
 				<a href="index.html">Home</a>
@@ -32,33 +32,33 @@
 				<tr>
 					<td>Apples</td>
 					<td id="apple-price">0.75</td>
-					<td><input type="number" id="apple-quantity" value="0"></td>
+					<td><input type="number" id="apple-quantity" value="0" min="0"></td>
 				</tr>
 				<tr>
 					<td>Bagels</td>
 					<td id="bagel-price">0.50</td>
-					<td><input type="number" id="bagel-quantity" value="0"></td>
+					<td><input type="number" id="bagel-quantity" value="0" min="0"></td>
 				</tr>
 				<tr>
 					<td>Coconuts</td>
 					<td id="coconut-price">2.50</td>
-					<td><input type="number" id="coconut-quantity" value="0"></td>
+					<td><input type="number" id="coconut-quantity" value="0" min="0"></td>
 				</tr>
 				<tr>
 					<td>Donuts</td>
 					<td id="donut-price">1.50</td>
-					<td><input type="number" id="donut-quantity" value="0"></td>
+					<td><input type="number" id="donut-quantity" value="0" min="0"></td>
 				</tr>
 				<tr>
 					<td>Eggs</td>
 					<td id="egg-price">1.00</td>
-					<td><input type="number" id="egg-quantity" value="0"></td>
+					<td><input type="number" id="egg-quantity" value="0" min="0"></td>
 				</tr>
 			</table>
 
 			<br>
 
-			<div style="display: inline-flex;">
+			<div class="state-row">
 				<!-- Is there a better way to do this? Yes! React will be helpful here. -->
 				<label for="state-tax"><strong>Select Your State:</strong></label>
 				<select id="state-tax">
