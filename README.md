@@ -6,6 +6,6 @@ A more detailed description can be found [here](https://csdiy.wiki/en/Web%E5%BC%
 
 ## Homeworks
 
-[x] hw0: Introductions
-[x] hw1: Badger Mart
-[ ] hw2: Badger Book
+- [x] hw0: Introductions
+- [x] hw1: Badger Mart
+- [ ] hw2: Badger Book
