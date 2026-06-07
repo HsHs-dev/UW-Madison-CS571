@@ -51,6 +51,7 @@ function buildStudents(studs) {
     interests.classList.add("interests");
     stud.interests.forEach((inter) => {
       const li = document.createElement("li");
+      li.classList.add("interest");
       li.textContent = inter;
       interests.appendChild(li);
     });
@@ -62,13 +63,18 @@ function buildStudents(studs) {
   document.body.appendChild(container);
 }
 
-function handleSearch(e) {
+function handleSearch(e, search_name, search_major, search_interests) {
   e?.preventDefault(); // You can ignore this; prevents the default form submission!
 
   // extract fields content
-  const name = document.getElementById("search-name").value;
-  const major = document.getElementById("search-major").value;
-  const interests = document.getElementById("search-interest").value;
+  const name = search_name ?? document.getElementById("search-name").value;
+  const major = search_major ?? document.getElementById("search-major").value;
+  const interests =
+    search_interests ?? document.getElementById("search-interest").value;
+
+  if (search_interests) {
+    document.getElementById("search-interest").value = search_interests;
+  }
 
   /* get the students that follow the searching criteria */
   const matched = findStudents(name, major, interests);
@@ -103,3 +109,13 @@ function findStudents(name, major, interests) {
 }
 
 document.getElementById("search-btn").addEventListener("click", handleSearch);
+
+// add similar interest functionality
+const container = document.querySelector(".container-fluid");
+
+container.addEventListener("click", (e) => {
+  if (e.target.classList.contains("interest")) {
+    const interest = e.target.textContent;
+    handleSearch(undefined, "", "", interest);
+  }
+});

@@ -17,3 +17,22 @@ div h6 {
 .container-fluid div {
   border: 1px solid grey;
 }
+
+.interest {
+  cursor: pointer;
+}
+
+.interest:hover {
+  text-decoration: underline;
+}
+
+form {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 900px) {
+  form {
+    flex-direction: column;
+  }
+}
