@@ -1,3 +1,25 @@
+const data_link = "https://cs571.org/rest/s25/hw2/students";
+let all_students = [];
+
+// fetching students
+fetch(data_link, {
+  headers: {
+    "X-CS571-ID": CS571.getBadgerId(),
+  },
+})
+  .then((res) => {
+    return res.json();
+  })
+  .then((data) => {
+    console.table(data);
+    document.querySelector("#num-results").textContent = data.length;
+    all_students = data;
+    buildStudents(data);
+  })
+  .catch((err) => {
+    console.error("error fetching data:", err);
+  });
+
 function buildStudents(studs) {
   const container = document.querySelector(".container-fluid");
   container.classList.add("row");
@@ -5,13 +27,15 @@ function buildStudents(studs) {
   studs.forEach((stud) => {
     const stud_div = document.createElement("div");
 
-    stud_div.classList = "col-12 col-md-6 col-lg-4 col-xl-3";
+    stud_div.classList = "col-12 col-md-6 col-lg-4 col-xl-3 student";
 
     const name = document.createElement("h2");
+    name.classList.add("name");
     name.textContent = `${stud.name.first} ${stud.name.last}`;
     stud_div.appendChild(name);
 
     const major = document.createElement("h6");
+    major.classList.add("major");
     major.textContent = `${stud.major}`;
     stud_div.appendChild(major);
 
@@ -24,6 +48,7 @@ function buildStudents(studs) {
     stud_div.appendChild(inter_desc);
 
     const interests = document.createElement("ul");
+    interests.classList.add("interests");
     stud.interests.forEach((inter) => {
       const li = document.createElement("li");
       li.textContent = inter;
@@ -40,27 +65,41 @@ function buildStudents(studs) {
 function handleSearch(e) {
   e?.preventDefault(); // You can ignore this; prevents the default form submission!
 
-  // TODO Implement the search
+  // extract fields content
+  const name = document.getElementById("search-name").value;
+  const major = document.getElementById("search-major").value;
+  const interests = document.getElementById("search-interest").value;
+
+  /* get the students that follow the searching criteria */
+  const matched = findStudents(name, major, interests);
+
+  // clear the dom
+  const container = document.querySelector(".container-fluid");
+  container.textContent = "";
+
+  // display matched students
+  document.querySelector("#num-results").textContent = matched.length;
+  buildStudents(matched);
+}
+
+function findStudents(name, major, interests) {
+  name = name.toLowerCase();
+  major = major.toLowerCase();
+  interests = interests.toLowerCase();
+
+  const filtered = all_students.filter((student) => {
+    const name_cont =
+      `${student.name.first} ${student.name.last}`.toLowerCase();
+    const major_cont = student.major.toLowerCase();
+    const interests_cont = student.interests.join(" ").toLowerCase();
+    return (
+      name_cont.includes(name) &&
+      major_cont.includes(major) &&
+      interests_cont.includes(interests)
+    );
+  });
+
+  return filtered;
 }
 
 document.getElementById("search-btn").addEventListener("click", handleSearch);
-
-const data_link = "https://cs571.org/rest/s25/hw2/students";
-
-// fetching student
-fetch(data_link, {
-  headers: {
-    "X-CS571-ID": CS571.getBadgerId(),
-  },
-})
-  .then((res) => {
-    return res.json();
-  })
-  .then((data) => {
-    console.table(data);
-    document.querySelector("#num-results").textContent = data.length;
-    buildStudents(data);
-  })
-  .catch((err) => {
-    console.error("error fetching data:", err);
-  });
