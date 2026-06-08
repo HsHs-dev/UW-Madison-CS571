@@ -6,6 +6,10 @@ A more detailed description can be found [here](https://csdiy.wiki/en/Web%E5%BC%
 
 ## Homeworks
 
-- [x] hw0: Introductions
-- [x] hw1: Badger Mart
-- [x] hw2: Badger Book
+- Web Dev Basics
+  - [x] hw0: Introductions
+  - [x] hw1: Badger Mart
+  - [x] hw2: Badger Book
+
+* Web Dev
+  - [ ] hw3: Badger Mart (React!)
