@@ -12,4 +12,5 @@ A more detailed description can be found [here](https://csdiy.wiki/en/Web%E5%BC%
   - [x] hw2: Badger Book
 
 * Web Dev
-  - [ ] hw3: Badger Mart (React!)
+  - [x] hw3: Badger Mart (React!)
+  - [ ] hw4: Badger Book (React!)
