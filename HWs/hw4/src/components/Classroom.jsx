@@ -41,10 +41,10 @@ const Classroom = () => {
         <p>There are {students.length} student(s) matching your search.</p>
       )}
       <Container fluid>
-        <Row>
+        <Row className="g-0">
           {students.map((student) => (
-            <Col xs={12} md={6} lg={4} xl={3}>
-              <Student key={student.id} name={student.name} />
+            <Col key={student.id} xs={12} md={6} lg={4} xl={3}>
+              <Student {...student} />
             </Col>
           ))}
         </Row>
