@@ -4,7 +4,25 @@ import Student from "./Student";
 
 const Classroom = () => {
   const [students, setStudentsData] = useState([]);
-  const [studentsNum, setStudentsNum] = useState([]);
+  const [inputName, setInputName] = useState("");
+  const [inputMajor, setInputMajor] = useState("");
+  const [inputInterest, setInputInterest] = useState("");
+
+  const filteredStudents = students.filter((student) => {
+    const name = `${student.name.first} ${student.name.last}`.toLowerCase();
+    const major = student.major.toLowerCase();
+    const searchName = inputName.toLowerCase().trim();
+    const searchMajor = inputMajor.toLowerCase().trim();
+    const searchInterest = inputInterest.toLowerCase().trim();
+
+    return (
+      name.includes(searchName) &&
+      major.includes(searchMajor) &&
+      student.interests.some((inter) =>
+        inter.toLowerCase().includes(searchInterest),
+      )
+    );
+  });
 
   useEffect(() => {
     fetch("https://cs571.org/rest/s25/hw4/students", {
@@ -27,22 +45,37 @@ const Classroom = () => {
       <hr />
       <Form>
         <Form.Label htmlFor="searchName">Name</Form.Label>
-        <Form.Control id="searchName" />
+        <Form.Control
+          id="searchName"
+          value={inputName}
+          onChange={(e) => setInputName(e.target.value)}
+        />
         <Form.Label htmlFor="searchMajor">Major</Form.Label>
-        <Form.Control id="searchMajor" />
+        <Form.Control
+          id="searchMajor"
+          value={inputMajor}
+          onChange={(e) => setInputMajor(e.target.value)}
+          className="mt-3 mb-3"
+        />
         <Form.Label htmlFor="searchInterest">Interest</Form.Label>
-        <Form.Control id="searchInterest" />
+        <Form.Control
+          id="searchInterest"
+          value={inputInterest}
+          onChange={(e) => setInputInterest(e.target.value)}
+        />
         <br />
         <Button variant="neutral">Reset Search</Button>
       </Form>
       {students.length === 0 ? (
         <p>Fetching Students..</p>
       ) : (
-        <p>There are {students.length} student(s) matching your search.</p>
+        <p>
+          There are {filteredStudents.length} student(s) matching your search.
+        </p>
       )}
       <Container fluid>
         <Row className="g-0">
-          {students.map((student) => (
+          {filteredStudents.map((student) => (
             <Col key={student.id} xs={12} md={6} lg={4} xl={3}>
               <Student {...student} />
             </Col>
