@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Button, Container, Form, Row } from "react-bootstrap";
 
 const Classroom = () => {
-  const [students, setStudents] = useState([]);
+  const [students, setStudentsData] = useState([]);
+  const [studentsNum, setStudentsNum] = useState([]);
 
   useEffect(() => {
     fetch("https://cs571.org/rest/s25/hw4/students", {
@@ -12,8 +13,8 @@ const Classroom = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setStudents(data);
+        console.table(data);
+        setStudentsData(data);
       })
       .catch((err) => console.error(err.message));
   }, []);
@@ -36,6 +37,11 @@ const Classroom = () => {
       <Container fluid>
         <Row>{/* TODO Students go here! */}</Row>
       </Container>
+      {students.length === 0 ? (
+        <p>Fetching Students..</p>
+      ) : (
+        <p>There are {students.length} student(s) matching your search.</p>
+      )}
     </div>
   );
 };
