@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form, Row } from "react-bootstrap";
+import { Button, Container, Form, Row, Col } from "react-bootstrap";
 import Student from "./Student";
 
 const Classroom = () => {
@@ -43,7 +43,9 @@ const Classroom = () => {
       <Container fluid>
         <Row>
           {students.map((student) => (
-            <Student key={student.id} name={student.name} />
+            <Col xs={12} md={6} lg={4} xl={3}>
+              <Student key={student.id} name={student.name} />
+            </Col>
           ))}
         </Row>
       </Container>
