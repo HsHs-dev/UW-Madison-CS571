@@ -1,6 +1,23 @@
+import { useEffect, useState } from "react";
 import { Button, Container, Form, Row } from "react-bootstrap";
 
 const Classroom = () => {
+  const [students, setStudents] = useState([]);
+
+  useEffect(() => {
+    fetch("https://cs571.org/rest/s25/hw4/students", {
+      headers: {
+        "X-CS571-ID": CS571.getBadgerId(),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setStudents(data);
+      })
+      .catch((err) => console.error(err.message));
+  }, []);
+
   return (
     <div>
       <h1>Badger Book</h1>
@@ -24,4 +41,3 @@ const Classroom = () => {
 };
 
 export default Classroom;
-
