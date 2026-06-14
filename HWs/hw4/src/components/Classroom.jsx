@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Form, Row, Col } from "react-bootstrap";
+import { Button, Container, Form, Row, Col, Pagination } from "react-bootstrap";
 import Student from "./Student";
 
 const Classroom = () => {
@@ -23,6 +23,14 @@ const Classroom = () => {
       )
     );
   });
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 24;
+  const totalPages = Math.ceil(filteredStudents.length / itemsPerPage);
+  const displayedStudents = filteredStudents.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage,
+  );
 
   const handlReset = () => {
     setInputName("");
@@ -83,12 +91,27 @@ const Classroom = () => {
       )}
       <Container fluid>
         <Row className="g-0">
-          {filteredStudents.map((student) => (
+          {displayedStudents.map((student) => (
             <Col key={student.id} xs={12} md={6} lg={4} xl={3}>
               <Student {...student} />
             </Col>
           ))}
         </Row>
+
+        <Pagination className="mt-5">
+          {Array.from({ length: totalPages }, (_, i) => {
+            const pageNum = i + 1;
+            return (
+              <Pagination.Item
+                key={pageNum}
+                active={page === pageNum}
+                onClick={() => setPage(pageNum)}
+              >
+                {pageNum}
+              </Pagination.Item>
+            );
+          })}
+        </Pagination>
       </Container>
     </div>
   );
