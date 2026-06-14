@@ -24,6 +24,12 @@ const Classroom = () => {
     );
   });
 
+  const handlReset = () => {
+    setInputName("");
+    setInputMajor("");
+    setInputInterest("");
+  };
+
   useEffect(() => {
     fetch("https://cs571.org/rest/s25/hw4/students", {
       headers: {
@@ -64,7 +70,9 @@ const Classroom = () => {
           onChange={(e) => setInputInterest(e.target.value)}
         />
         <br />
-        <Button variant="neutral">Reset Search</Button>
+        <Button variant="secondary mb-2" onClick={handlReset}>
+          Reset Search
+        </Button>
       </Form>
       {students.length === 0 ? (
         <p>Fetching Students..</p>
