@@ -89,7 +89,7 @@ const Classroom = () => {
           There are {filteredStudents.length} student(s) matching your search.
         </p>
       )}
-      <Container fluid>
+      <Container fluid className="d-flex flex-column min-vh-100">
         <Row className="g-0">
           {displayedStudents.map((student) => (
             <Col key={student.id} xs={12} md={6} lg={4} xl={3}>
@@ -97,22 +97,29 @@ const Classroom = () => {
             </Col>
           ))}
         </Row>
-
-        <Pagination className="mt-5">
-          {Array.from({ length: totalPages }, (_, i) => {
-            const pageNum = i + 1;
-            return (
-              <Pagination.Item
-                key={pageNum}
-                active={page === pageNum}
-                onClick={() => setPage(pageNum)}
-              >
-                {pageNum}
-              </Pagination.Item>
-            );
-          })}
-        </Pagination>
       </Container>
+      <Pagination className="mt-5 mb-5">
+        <Pagination.Prev onClick={() => setPage(page === 1 ? page : page - 1)}>
+          Previous
+        </Pagination.Prev>
+        {Array.from({ length: totalPages }, (_, i) => {
+          const pageNum = i + 1;
+          return (
+            <Pagination.Item
+              key={pageNum}
+              active={page === pageNum}
+              onClick={() => setPage(pageNum)}
+            >
+              {pageNum}
+            </Pagination.Item>
+          );
+        })}
+        <Pagination.Next
+          onClick={() => setPage(page === totalPages ? totalPages : page + 1)}
+        >
+          Next
+        </Pagination.Next>
+      </Pagination>
     </div>
   );
 };
