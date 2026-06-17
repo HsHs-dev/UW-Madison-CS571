@@ -26,4 +26,5 @@ CS571/
 
 * Web Dev
   - [x] hw3: Badger Mart (React!)
-  - [ ] hw4: Badger Book (React!)
+  - [x] hw4: Badger Book (React!)
+  - [ ] hw5: Badger Buddies
