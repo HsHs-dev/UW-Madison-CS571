@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 
 export default function BadgerBudSummary({
@@ -12,7 +13,13 @@ export default function BadgerBudSummary({
   const imageAPI =
     "https://raw.githubusercontent.com/CS571-S25/hw5-api-static-content/main/cats/";
 
+  const [showMore, setShowMore] = useState(false);
+
   const firstImg = imgIds?.[0];
+
+  function handleShowMore() {
+    setShowMore(!showMore);
+  }
 
   return (
     <Card className="d-flex h-100 p-3">
@@ -23,10 +30,19 @@ export default function BadgerBudSummary({
         style={{ height: "500px", objectFit: "cover" }}
       />
       <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text></Card.Text>
-        <div className="d-flex justify-content-around">
-          <Button variant="primary">Show More</Button>
+        <Card.Title className="fw-bold">{name}</Card.Title>
+        {showMore && (
+          <Card.Text>
+            {gender ?? ""} <br />
+            {breed ?? ""} <br />
+            {age ?? ""} <br /> <br />
+            {description ?? ""}
+          </Card.Text>
+        )}
+        <div className="d-flex justify-content-around mt-3">
+          <Button variant="primary" onClick={handleShowMore}>
+            {!showMore ? "Show More" : "Show Less"}
+          </Button>
           <Button variant="success">
             <span
               role="img"
