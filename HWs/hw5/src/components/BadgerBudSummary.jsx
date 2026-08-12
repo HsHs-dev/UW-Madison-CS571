@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Carousel } from "react-bootstrap";
 
 export default function BadgerBudSummary({
   id,
@@ -21,20 +21,36 @@ export default function BadgerBudSummary({
 
   const [showMore, setShowMore] = useState(false);
 
-  const firstImg = imgIds?.[0];
-
   function handleShowMore() {
     setShowMore(!showMore);
   }
 
   return (
     <Card className="d-flex h-100 p-3">
-      <Card.Img
-        variant="top"
-        src={`${imageAPI}${firstImg}`}
-        alt={`A picture of ${name}`}
-        style={{ height: "500px", objectFit: "cover" }}
-      />
+      {showMore ? (
+        <Carousel>
+          {imgIds.map((imgId) => (
+            <Carousel.Item key={imgId}>
+              <Card.Img
+                src={`${imageAPI}${imgId}`}
+                alt={`A picture of ${name}`}
+                style={{
+                  objectFit: "cover",
+                  aspectRatio: "1 / 1",
+                }}
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      ) : (
+        <Card.Img
+          variant="top"
+          src={`${imageAPI}${imgIds?.[0]}`}
+          alt={`A picture of ${name}`}
+          style={{ objectFit: "cover", aspectRatio: "1 / 1" }}
+        />
+      )}
+
       <Card.Body>
         <Card.Title className="fw-bold">{name}</Card.Title>
         {showMore && (
