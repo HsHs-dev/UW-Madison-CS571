@@ -40,6 +40,8 @@ export default function BadgerBudsBasket(props) {
     <div>
       <h1>Badger Buds Basket</h1>
       <p>These cute cats could be all yours!</p>
+      {basketBuds.length === 0 ? <p>You have no buds in your basket!</p> : null}
+
       <Container fluid>
         <Row className="g-3">
           {basketBuds.map((bud) => {

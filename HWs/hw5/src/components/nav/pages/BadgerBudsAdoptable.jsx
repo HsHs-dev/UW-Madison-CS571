@@ -32,6 +32,9 @@ export default function BadgerBudsAdoptable(props) {
     <div>
       <h1>Available Badger Buds</h1>
       <p>The following cats are looking for a loving home! Could you help?</p>
+      {adoptableBuds.length === 0 ? (
+        <p>No buds are available for adoption!</p>
+      ) : null}
       <Container fluid>
         <Row className="g-3">
           {adoptableBuds.map((bud) => {
