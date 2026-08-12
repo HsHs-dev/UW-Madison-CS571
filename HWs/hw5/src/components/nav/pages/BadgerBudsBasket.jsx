@@ -6,12 +6,24 @@ import { Container, Row, Col } from "react-bootstrap";
 export default function BadgerBudsBasket(props) {
   const buds = useContext(BadgerBudsDataContext);
 
-  const savedCatIDs = JSON.parse(sessionStorage.getItem("savedCatIDs") || "[]");
+  const [savedCatIDs, setSavedCatIDs] = useState(
+    JSON.parse(sessionStorage.getItem("savedCatIDs") || "[]"),
+  );
 
   const basketBuds = buds.filter((bud) => savedCatIDs.includes(bud.id));
 
   function adoptCat() {
     alert("yayyyyyyy");
+  }
+
+  function unselectCat(id, name) {
+    alert(name + " has been removed from your basket");
+
+    const IDs = JSON.parse(sessionStorage.getItem("savedCatIDs"));
+    const updatedIDs = IDs.filter((curr) => curr !== id);
+
+    sessionStorage.setItem("savedCatIDs", JSON.stringify(updatedIDs));
+    setSavedCatIDs(updatedIDs);
   }
 
   return (
@@ -25,7 +37,7 @@ export default function BadgerBudsBasket(props) {
               <Col xs={12} md={6} lg={4} xxl={3} key={bud.id}>
                 <BadgerBudSummary
                   {...bud}
-                  onAction1={() => {}}
+                  onAction1={unselectCat}
                   onAction2={adoptCat}
                   actionText1="Unselect"
                   actionText2="💕 Save"

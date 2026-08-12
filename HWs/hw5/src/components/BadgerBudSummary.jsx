@@ -48,7 +48,7 @@ export default function BadgerBudSummary({
         <div className="d-flex justify-content-around mt-3">
           <Button
             variant={actionVariant1}
-            onClick={onAction1 ?? handleShowMore}
+            onClick={() => (onAction1 ? onAction1(id, name) : handleShowMore())}
           >
             {actionText1 === "Show More"
               ? showMore
