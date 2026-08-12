@@ -9,7 +9,12 @@ export default function BadgerBudSummary({
   breed,
   gender,
   description,
-  addBasket,
+  onAction1,
+  onAction2,
+  actionText1,
+  actionText2,
+  actionVariant1 = "primary",
+  actionVariant2 = "secondary",
 }) {
   const imageAPI =
     "https://raw.githubusercontent.com/CS571-S25/hw5-api-static-content/main/cats/";
@@ -41,19 +46,18 @@ export default function BadgerBudSummary({
           </Card.Text>
         )}
         <div className="d-flex justify-content-around mt-3">
-          <Button variant="primary" onClick={handleShowMore}>
-            {!showMore ? "Show More" : "Show Less"}
+          <Button
+            variant={actionVariant1}
+            onClick={onAction1 ?? handleShowMore}
+          >
+            {actionText1 === "Show More"
+              ? showMore
+                ? "Show Less"
+                : "Show More"
+              : actionText1}
           </Button>
-          <Button variant="success" onClick={() => addBasket(id, name)}>
-            <span
-              role="img"
-              aria-label="red heart"
-              className="react-emojis"
-              style={{ lineHeight: "1" }}
-            >
-              ❤️️
-            </span>{" "}
-            Adopt
+          <Button variant={actionVariant2} onClick={() => onAction2(id, name)}>
+            {actionText2}
           </Button>
         </div>
       </Card.Body>

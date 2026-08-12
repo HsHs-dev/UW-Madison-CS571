@@ -4,22 +4,23 @@ import BadgerBudsDataContext from "../../../contexts/BadgerBudsDataContext.js";
 import BadgerBudSummary from "../../BadgerBudSummary.jsx";
 
 export default function BadgerBudsAdoptable(props) {
-  const [buds, setBuds] = useState(useContext(BadgerBudsDataContext));
+  const buds = useContext(BadgerBudsDataContext);
+
+  const [savedCatIDs, setSavedCatIDs] = useState(
+    JSON.parse(sessionStorage.getItem("savedCatIDs") || "[]"),
+  );
 
   function addBasket(id, name) {
     alert(name + " has been added to your basket");
 
-    const savedCatIDs = JSON.parse(
-      sessionStorage.getItem("savedCatIDs") || "[]",
-    );
+    const updatedIDs = [...savedCatIDs, id];
 
-    if (!savedCatIDs.includes(id)) {
-      savedCatIDs.push(id);
-      sessionStorage.setItem("savedCatIDs", JSON.stringify(savedCatIDs));
-    }
+    sessionStorage.setItem("savedCatIDs", JSON.stringify(updatedIDs));
 
-    setBuds((buds) => buds.filter((bud) => bud.id !== id));
+    setSavedCatIDs(updatedIDs);
   }
+
+  const adoptableBuds = buds.filter((bud) => !savedCatIDs.includes(bud.id));
 
   return (
     <div>
@@ -27,10 +28,28 @@ export default function BadgerBudsAdoptable(props) {
       <p>The following cats are looking for a loving home! Could you help?</p>
       <Container fluid>
         <Row className="g-3">
-          {buds.map((bud) => {
+          {adoptableBuds.map((bud) => {
             return (
               <Col xs={12} md={6} lg={4} xxl={3} key={bud.id}>
-                <BadgerBudSummary {...bud} addBasket={addBasket} />
+                <BadgerBudSummary
+                  {...bud}
+                  onAction2={addBasket}
+                  actionText1="Show More"
+                  actionText2={
+                    <>
+                      <span
+                        role="img"
+                        aria-label="red heart"
+                        className="react-emojis"
+                        style={{ lineHeight: "1" }}
+                      >
+                        ❤️️
+                      </span>{" "}
+                      Adopt
+                    </>
+                  }
+                  actionVariant="success"
+                />
               </Col>
             );
           })}
