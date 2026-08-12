@@ -9,6 +9,7 @@ export default function BadgerBudSummary({
   breed,
   gender,
   description,
+  addBasket,
 }) {
   const imageAPI =
     "https://raw.githubusercontent.com/CS571-S25/hw5-api-static-content/main/cats/";
@@ -43,7 +44,7 @@ export default function BadgerBudSummary({
           <Button variant="primary" onClick={handleShowMore}>
             {!showMore ? "Show More" : "Show Less"}
           </Button>
-          <Button variant="success">
+          <Button variant="success" onClick={() => addBasket(id, name)}>
             <span
               role="img"
               aria-label="red heart"

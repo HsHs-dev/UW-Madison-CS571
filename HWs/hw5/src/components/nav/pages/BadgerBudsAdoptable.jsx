@@ -1,10 +1,25 @@
 import { Container, Row, Col } from "react-bootstrap";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import BadgerBudsDataContext from "../../../contexts/BadgerBudsDataContext.js";
 import BadgerBudSummary from "../../BadgerBudSummary.jsx";
 
 export default function BadgerBudsAdoptable(props) {
-  const buds = useContext(BadgerBudsDataContext);
+  const [buds, setBuds] = useState(useContext(BadgerBudsDataContext));
+
+  function addBasket(id, name) {
+    alert(name + " has been added to your basket");
+
+    const savedCatIDs = JSON.parse(
+      sessionStorage.getItem("savedCatIDs") || "[]",
+    );
+
+    if (!savedCatIDs.includes(id)) {
+      savedCatIDs.push(id);
+      sessionStorage.setItem("savedCatIDs", JSON.stringify(savedCatIDs));
+    }
+
+    setBuds((buds) => buds.filter((bud) => bud.id !== id));
+  }
 
   return (
     <div>
@@ -13,10 +28,9 @@ export default function BadgerBudsAdoptable(props) {
       <Container fluid>
         <Row className="g-3">
           {buds.map((bud) => {
-            console.log(bud);
             return (
               <Col xs={12} md={6} lg={4} xxl={3} key={bud.id}>
-                <BadgerBudSummary {...bud} />
+                <BadgerBudSummary {...bud} addBasket={addBasket} />
               </Col>
             );
           })}

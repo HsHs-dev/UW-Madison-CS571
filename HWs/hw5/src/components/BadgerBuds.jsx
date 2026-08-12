@@ -19,8 +19,6 @@ export default function BadgerBuds() {
       });
   }, []);
 
-  console.log(buds);
-
   return (
     <div>
       <BadgerBudsNavbar />
@@ -32,4 +30,3 @@ export default function BadgerBuds() {
     </div>
   );
 }
-
