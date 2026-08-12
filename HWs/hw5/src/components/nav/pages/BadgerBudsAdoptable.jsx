@@ -10,6 +10,10 @@ export default function BadgerBudsAdoptable(props) {
     JSON.parse(sessionStorage.getItem("savedCatIDs") || "[]"),
   );
 
+  const [adoptedCatIDs, setAdoptedCatIDs] = useState(
+    JSON.parse(sessionStorage.getItem("adoptedCatIDs") || "[]"),
+  );
+
   function addBasket(id, name) {
     alert(name + " has been added to your basket");
 
@@ -20,7 +24,9 @@ export default function BadgerBudsAdoptable(props) {
     setSavedCatIDs(updatedIDs);
   }
 
-  const adoptableBuds = buds.filter((bud) => !savedCatIDs.includes(bud.id));
+  const adoptableBuds = buds.filter(
+    (bud) => !savedCatIDs.includes(bud.id) && !adoptedCatIDs.includes(bud.id),
+  );
 
   return (
     <div>

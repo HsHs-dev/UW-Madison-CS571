@@ -10,21 +10,31 @@ export default function BadgerBudsBasket(props) {
     JSON.parse(sessionStorage.getItem("savedCatIDs") || "[]"),
   );
 
-  const basketBuds = buds.filter((bud) => savedCatIDs.includes(bud.id));
+  const [adoptedCatIDs, setAdoptedCatIDs] = useState(
+    JSON.parse(sessionStorage.getItem("adoptedCatIDs") || "[]"),
+  );
 
-  function adoptCat() {
-    alert("yayyyyyyy");
-  }
-
-  function unselectCat(id, name) {
-    alert(name + " has been removed from your basket");
-
-    const IDs = JSON.parse(sessionStorage.getItem("savedCatIDs"));
-    const updatedIDs = IDs.filter((curr) => curr !== id);
+  function removeID(id) {
+    const updatedIDs = savedCatIDs.filter((curr) => curr !== id);
 
     sessionStorage.setItem("savedCatIDs", JSON.stringify(updatedIDs));
     setSavedCatIDs(updatedIDs);
   }
+
+  function unselectCat(id, name) {
+    alert(name + " has been removed from your basket");
+    removeID(id);
+  }
+
+  function adoptCat(id, name) {
+    alert(name + " has been adopted!");
+    removeID(id);
+    const updatedAdopted = [...adoptedCatIDs, id];
+    sessionStorage.setItem("adoptedCatIDs", JSON.stringify(updatedAdopted));
+    setAdoptedCatIDs(updatedAdopted);
+  }
+
+  const basketBuds = buds.filter((bud) => savedCatIDs.includes(bud.id));
 
   return (
     <div>
