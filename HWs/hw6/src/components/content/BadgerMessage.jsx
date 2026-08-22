@@ -12,7 +12,7 @@ function BadgerMessage(props) {
       </sub>
       <br />
       <i>{props.poster}</i>
-      <p className="text-break">{props.content}</p>
+      <p>{props.content}</p>
     </Card>
   );
 }
